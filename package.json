@@ -4,8 +4,8 @@
   "description": "API version 1  de l'application Kanban NC - RFID NC",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "NODE_ENV=production node server.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -40,5 +40,9 @@
     "path": "^0.12.7",
     "slugify": "^1.6.5",
     "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.20"
   }
 }
