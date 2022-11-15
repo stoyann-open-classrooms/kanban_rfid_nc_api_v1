@@ -1,0 +1,26 @@
+{
+  "name": "kanban_rfid_nc_api_v1",
+  "version": "1.0.0",
+  "description": "API version 1  de l'application Kanban NC - RFID NC",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stoyann-open-classrooms/kanban_rfid_nc_api_v1.git"
+  },
+  "keywords": [
+    "API",
+    "Kanban",
+    "NC",
+    "RFID"
+  ],
+  "author": "Velten Stoyann",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stoyann-open-classrooms/kanban_rfid_nc_api_v1/issues"
+  },
+  "homepage": "https://github.com/stoyann-open-classrooms/kanban_rfid_nc_api_v1#readme"
+}
