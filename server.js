@@ -1,4 +1,4 @@
-// Dependenties
+// Dependency
 const express = require("express");
 const dotenv = require("dotenv").config();
 const colors = require("colors");
@@ -58,16 +58,16 @@ app.use(hpp());
 // Enable CORS
 app.use(cors());
 
-// cors middleware
+// // cors middleware
 app.use(
   cors({
     origin: "*",
   })
 );
 
+
 // ===============================================static Images Folder
 app.use("./public/upload", express.static("./public/upload"));
-
 // Mount routers
 app.use("/api/v1/kanbans", kanban);
 app.use("/api/v1/requests", request);

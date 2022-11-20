@@ -1,19 +1,19 @@
-const mongoose = require('mongoose')
-const slugify = require('slugify')
+const mongoose = require("mongoose");
+const slugify = require("slugify");
 const KanbanSchema = new mongoose.Schema(
   {
     slug: String,
     product: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product',
+      ref: "Product",
     },
     requests: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Requests',
+      ref: "Requests",
     },
     uid_nfc: {
       type: String,
-      required: ['true', 'Vous devez ajouter un identifiant NFC'],
+      required: ["true", "Vous devez ajouter un identifiant NFC"],
       unique: true,
       trim: true,
       maxlength: [
@@ -29,13 +29,13 @@ const KanbanSchema = new mongoose.Schema(
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
-  },
-)
+  }
+);
 
 // create kanban slug from the nfc id
-KanbanSchema.pre('save', function (next) {
-  this.slug = slugify(this.uid_nfc, { lower: true })
-  next()
-})
+KanbanSchema.pre("save", function (next) {
+  this.slug = slugify(this.uid_nfc, { lower: true });
+  next();
+});
 
-module.exports = mongoose.model('Kanban', KanbanSchema)
+module.exports = mongoose.model("Kanban", KanbanSchema);

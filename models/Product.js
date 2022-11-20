@@ -11,7 +11,7 @@ const ProductSchema = new mongoose.Schema(
     image: {
       type: String,
       required: [true, "Vous devez ajouter une image pour ce produit"],
-      default: "public\\upload\\no-photo",
+      default: "public\\upload\\no_picture.png",
     },
     name: {
       type: String,
@@ -23,7 +23,7 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: [true, "Merci d'entrer une designation produit"],
       trim: true,
-      maxlength: [50, "Le nom doit contenir au maximum 50 caractères"],
+      maxlength: [500, "Le nom doit contenir au maximum 50 caractères"],
     },
     refference: {
       type: String,
@@ -41,9 +41,9 @@ const ProductSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Create  product slug from the product refference
+// Create  product slug from the product name
 ProductSchema.pre("save", function (next) {
-  this.slug = slugify(this.refference, { lower: true });
+  this.slug = slugify(this.name, { lower: true });
   next();
 });
 
