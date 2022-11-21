@@ -8,11 +8,8 @@ const ProductSchema = new mongoose.Schema(
       ref: "Order",
     },
     slug: String,
-    image: {
-      type: String,
-      required: [true, "Vous devez ajouter une image pour ce produit"],
-      default: "public\\upload\\no_picture.png",
-    },
+    image: String,
+    
     name: {
       type: String,
       required: [true, "Merci d'entrer un nom de produit"],

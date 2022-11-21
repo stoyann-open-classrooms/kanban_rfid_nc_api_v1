@@ -1,10 +1,6 @@
+const path = require('path')
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middlewares/async");
-
-// image Upload dependence
-
-const multer = require("multer");
-const path = require("path");
 
 const Product = require("../models/Product");
 
@@ -109,7 +105,6 @@ const getProduct = asyncHandler(async (req, res, next) => {
 const createProduct = asyncHandler(async (req, res, next) => {
   const { refference, designation, name, stock } = req.body;
   const product = await Product.create({
-   image: req.file.path,
     name: name,
     refference: refference,
     designation: designation,
@@ -153,36 +148,64 @@ const deleteProduct = asyncHandler(async (req, res, next) => {
 
 // // =========================== UPLOAD IMAGE CONTROLLER ========================================
 
-const im = "product_";
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "public/upload");
-  },
-  filename: (req, file, cb) => {
-    cb(null, im + Date.now() + path.extname(file.originalname));
-  },
+// @desc      Upload photo for partner
+// @route     PUT /api/v1/partners/:id/photo
+// @access    Private
+const productPhotoUpload = asyncHandler(async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    return next(
+      new ErrorResponse(`Product not found with id of ${req.params.id}`, 404)
+    );
+  }
+
+
+  if (!req.files) {
+    return next(new ErrorResponse(`Please upload a file`, 400));
+  }
+
+  const file = req.files.image;
+  
+  // Make sure the image is a photo
+  if (!file.mimetype.startsWith('image')) {
+    return next(new ErrorResponse(`Please upload an image file`, 400));
+  }
+
+  // Check filesize
+  if (file.size > process.env.MAX_FILE_UPLOAD) {
+    return next(
+      new ErrorResponse(
+        `Please upload an image less than ${process.env.MAX_FILE_UPLOAD}`,
+        400
+      )
+    );
+  }
+
+  // Create custom filename
+  file.name = `photo_${product._id}${path.parse(file.name).ext}`;
+
+  file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async err => {
+    if (err) {
+      console.error(err);
+      return next(new ErrorResponse(`Problem with file upload`, 500));
+    }
+
+    await Product.findByIdAndUpdate(req.params.id, { image: file.name });
+
+    res.status(200).json({
+      success: true,
+      data: file.name
+    });
+  });
 });
 
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: "1000000" },
-  fileFilter: (req, file, cb) => {
-    const fileTypes = /jpeg|jpg|png|gif/;
-    const mimeType = fileTypes.test(file.mimetype);
-    const extname = fileTypes.test(path.extname(file.originalname));
-
-    if (mimeType && extname) {
-      return cb(null, true);
-    }
-    cb("Le fichier doit être au format JPG , JPEG , PNG ou GIF");
-  },
-}).single("image");
 
 module.exports = {
   getProduct,
-  upload,
   getProducts,
   createProduct,
   deleteProduct,
   updateProduct,
+  productPhotoUpload
 };

@@ -11,9 +11,13 @@ const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const rateLimit = require("express-rate-limit");
 const hpp = require("hpp");
-
+const path = require('path')
+const fileupload = require("express-fileupload")
 // connect database
 connectDB();
+const NODE_ENV = process.env.NODE_ENV;
+
+
 
 // Routes files import
 const kanban = require("./routes/kanban");
@@ -24,18 +28,29 @@ const product = require("./routes/product");
 // Express initialisation
 const app = express();
 
-// Body parser
-app.use(express.json());
+
+// File uploading 
+app.use(fileupload())
+//set static folder 
+app.use(express.static(path.join(__dirname, 'public')))
+
 
 const PORT = process.env.PORT || 5058;
-const NODE_ENV = process.env.NODE_ENV;
 
+// Body parser
+app.use(express.json());
 // Dev logging middleware
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+
+
 app.use(express.urlencoded({ extended: false }));
+
+
+
+
 
 // =============================================== Security ===============================================
 // Sanitize data
@@ -66,8 +81,6 @@ app.use(
 );
 
 
-// ===============================================static Images Folder
-app.use("./public/upload", express.static("./public/upload"));
 // Mount routers
 app.use("/api/v1/kanbans", kanban);
 app.use("/api/v1/requests", request);
