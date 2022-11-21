@@ -1,5 +1,4 @@
 # KANBAN API  - backend de l'application
-This repo contains all the source code to run the micro API for the sports analytics dashboard SportSee.
 
 ## Clonez le projet
 ``` 
