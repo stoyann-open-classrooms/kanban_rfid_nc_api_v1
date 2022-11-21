@@ -1,103 +1,72 @@
-// Dependency
-const express = require("express");
-const dotenv = require("dotenv").config();
-const colors = require("colors");
-const morgan = require("morgan");
-const cors = require("cors");
-const errorHandler = require("./middlewares/error");
-const connectDB = require("./config/db");
-const helmet = require("helmet");
-const mongoSanitize = require("express-mongo-sanitize");
-const xss = require("xss-clean");
-const rateLimit = require("express-rate-limit");
-const hpp = require("hpp");
+// dependency
 const path = require('path')
+const express = require("express");
+const dotenv = require("dotenv");
+const colors = require("colors");
 const fileupload = require("express-fileupload")
-// connect database
+//import middlewares
+const morgan = require("morgan");
+const errorHandler= require('./middlewares/error.js')
+
+
+// load config DB
+const connectDB = require("./config/db");
+
+//load environement variables
+dotenv.config({ path: "./config/config.env" });
+
+//Connect to database
 connectDB();
-const NODE_ENV = process.env.NODE_ENV;
+
+// Route files
+const kanbans = require("./routes/kanbans");
+const products = require("./routes/products");
+const requests = require("./routes/requests");
+const orders = require("./routes/orders");
 
 
-
-// Routes files import
-const kanban = require("./routes/kanban");
-const request = require("./routes/request");
-const order = require("./routes/order");
-const product = require("./routes/product");
-
-// Express initialisation
+// initialize express  application
 const app = express();
 
-
-// File uploading 
-app.use(fileupload())
-//set static folder 
-app.use(express.static(path.join(__dirname, 'public')))
-
-
-const PORT = process.env.PORT || 5058;
-
 // Body parser
-app.use(express.json());
-// Dev logging middleware
+app.use(express.json())
+
+// Dev logging Middleware
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
 
+// File uploading 
+app.use(fileupload())
 
-app.use(express.urlencoded({ extended: false }));
-
-
-
-
-
-// =============================================== Security ===============================================
-// Sanitize data
-app.use(mongoSanitize());
-// Set security headers
-app.use(helmet());
-//  Prevents XSS attacks
-app.use(xss());
-
-// // Rate limiting
-const limiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // 10mins
-  max: 1000,
-});
-app.use(limiter);
-
-//prevent http param pollution
-app.use(hpp());
-
-// Enable CORS
-app.use(cors());
-
-// // cors middleware
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+//set static folder 
+app.use(express.static(path.join(__dirname, 'public')))
 
 
-// Mount routers
-app.use("/api/v1/kanbans", kanban);
-app.use("/api/v1/requests", request);
-app.use("/api/v1/orders", order);
-app.use("/api/v1/products", product);
 
-// error handler middlewares
-app.use(errorHandler);
+//Mount routers
+app.use("/api/v1/kanbans", kanbans);
+app.use("/api/v1/products", products);
+app.use("/api/v1/requests", requests);
+app.use("/api/v1/orders", orders);
 
-//Root URL
-app.get("/api/v1", (req, res) => {
-  res.status(200).send({ message: `Bienvenue sur l'api kanban V1` });
-});
 
-const server = app.listen(PORT, () =>
+app.use(errorHandler)
+
+const PORT = process.env.PORT || 5000;
+
+const server = app.listen(
+  PORT,
   console.log(
-    `Server running in ${NODE_ENV} mode on PORT:   http://localhost:${PORT} ========`
-      .white.underline.bold.bgGreen
+    `Server running in ${process.env.NODE_ENV} mode on port ${PORT} `.white
+      .underline.bold.bgGreen
   )
 );
+
+// Handle unhandled promise rejections
+process.on("unhandledRejection", (err, promise) => {
+  console.log(`Error: ${err.message}`);
+  // Close server and exit process
+  server.close(() => process.exit(1));
+});

@@ -1,0 +1,92 @@
+[
+  {
+      "_id": "63794d8695b9e1783eabdf11",
+      "uid_nfc": "A01",
+      "product":  "63795aed7e1ca069808ec69e"
+    },
+    {
+        "_id": "63794d9295b9e1783eabdf13",
+        "uid_nfc": "A02",
+        "product":  "63795aae7e1ca069808ec69c"
+    },
+    {
+        "_id": "63794dcc95b9e1783eabdf15",
+        "uid_nfc": "A03",
+        "product":  "63795a7e7e1ca069808ec69a"
+  },
+  {
+      "_id": "63794dd295b9e1783eabdf17",
+      "uid_nfc": "A04",
+      "product": "63795a4a7e1ca069808ec698"
+  },
+  {
+      "_id": "63794dd795b9e1783eabdf19",
+      "uid_nfc": "A05",
+      "product": "637961457e1ca069808ec6c2"
+  },
+  {
+      "_id": "63794ddd95b9e1783eabdf1b",
+      "uid_nfc": "A06",
+      "product": "6379610a7e1ca069808ec6c0"
+  },
+  {
+      "_id": "63794de295b9e1783eabdf1d",
+      "uid_nfc": "A07",
+      "product": "637960d17e1ca069808ec6be"
+  },
+  {
+      "_id": "63794de695b9e1783eabdf1f",
+      "uid_nfc": "A08",
+      "product": "637960937e1ca069808ec6bc"
+  },
+  {
+      "_id": "63794dec95b9e1783eabdf21",
+      "uid_nfc": "A09"
+  },
+  {
+      "_id": "63794df395b9e1783eabdf23",
+      "uid_nfc": "A10"
+  },
+  {
+      "_id": "63794e0095b9e1783eabdf25",
+      "uid_nfc": "B01"
+  },
+  {
+      "_id": "63794e0695b9e1783eabdf27",
+      "uid_nfc": "B02"
+  },
+  {
+      "_id": "63794e0a95b9e1783eabdf29",
+      "uid_nfc": "B03"
+  },
+  {
+      "_id": "63794e1095b9e1783eabdf2b",
+      "uid_nfc": "B04"
+  },
+  {
+      "_id": "63794e1595b9e1783eabdf2d",
+      "uid_nfc": "B05"
+  },
+  {
+      "_id": "63794e1a95b9e1783eabdf2f",
+      "uid_nfc": "B06"
+  },
+  {
+      "_id": "63794e2095b9e1783eabdf31",
+      "uid_nfc": "B07"
+  },
+  {
+      "_id": "63794e2795b9e1783eabdf33",
+      "uid_nfc": "B08"
+  },
+  {
+      "_id": "63794e2d95b9e1783eabdf35",
+      "uid_nfc": "B09"
+  },
+  {
+      "_id": "63794e3395b9e1783eabdf37",
+      "uid_nfc": "B10"
+  }
+
+]
+  

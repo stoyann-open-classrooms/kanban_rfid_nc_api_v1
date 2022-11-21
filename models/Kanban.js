@@ -16,6 +16,7 @@ const KanbanSchema = new mongoose.Schema(
       required: ["true", "Vous devez ajouter un identifiant NFC"],
       unique: true,
       trim: true,
+      
       maxlength: [
         10,
         "L'identifiant d'un kanban ne peut contenir plus de de 10 caractères",

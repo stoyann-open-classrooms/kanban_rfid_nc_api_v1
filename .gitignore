@@ -1,4 +1,2 @@
 node_modules/
-.npm 
-.vscode
-.eslintcache
+config/config.env
