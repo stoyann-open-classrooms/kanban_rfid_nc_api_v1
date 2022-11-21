@@ -24,10 +24,10 @@ $ npm run dev
 ## ENDPOINTS
 l'api est disponible sur le port 5058
 
-http://localhost:5058/api/v1/kanbans
-http://localhost:5058/api/v1/products
-http://localhost:5058/api/v1/requests
-http://localhost:5058/api/v1/orders
+- http://localhost:5058/api/v1/kanbans
+- http://localhost:5058/api/v1/products
+- http://localhost:5058/api/v1/requests
+- http://localhost:5058/api/v1/orders
 
 
 ### Importer des données dans la BD
