@@ -3,6 +3,7 @@ const path = require('path')
 const express = require("express");
 const dotenv = require("dotenv");
 const colors = require("colors");
+const cors = require('cors')
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
@@ -35,6 +36,12 @@ const app = express();
 
 // Body parser
 app.use(express.json())
+
+app.use(
+  cors({
+    origin:'*'
+  })
+)
 
 // Dev logging Middleware
 if (process.env.NODE_ENV === "development") {
